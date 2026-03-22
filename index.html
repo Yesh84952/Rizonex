@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Rizonex Blog — PV Regulatory Insights &amp; GVP Updates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blk:#000;--i1:#0c0c0c;--i2:#141414;--i3:#1e1e1e;--i4:#282828;
+  --m1:#444;--m2:#666;--m3:#999;--m4:#bbb;--m5:#ddd;--wht:#fff;
+  --au:#c9a84c;--au2:#e8c96a;--aul:rgba(201,168,76,.18);--aub:rgba(201,168,76,.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--blk);color:var(--wht);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.65}
+*{cursor:none}
+#dot{position:fixed;width:6px;height:6px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .18s}
+#ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,.22);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .18s}
+body:has(a:hover) #dot,body:has(button:hover) #dot{width:3px;height:3px;background:var(--au)}
+body:has(a:hover) #ring,body:has(button:hover) #ring{width:44px;height:44px;border-color:rgba(201,168,76,.4)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;height:70px;display:flex;align-items:center;padding:0 3rem;background:rgba(0,0,0,.96);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nw{max-width:1300px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
+.nl-brand{display:flex;flex-direction:column;gap:1px;text-decoration:none}
+.nl-eye{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--au);display:block}
+.nl-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--wht);letter-spacing:.06em;line-height:1;display:block}
+.nl-links{display:flex;gap:2.5rem;align-items:center}
+.nl-links a{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--m3);text-decoration:none;transition:color .2s;position:relative}
+.nl-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--au);transition:width .28s}
+.nl-links a:hover,.nl-links a.active{color:var(--wht)}
+.nl-links a:hover::after,.nl-links a.active::after{width:100%}
+.nl-links a.active{color:var(--au)}
+.nl-cta{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;background:var(--wht);color:var(--blk);padding:.625rem 1.75rem;text-decoration:none;font-weight:500;transition:background .2s}
+.nl-cta:hover{background:var(--au)}
+
+/* BLOG HERO */
+.blog-hero{padding:9rem 3rem 5rem;background:var(--blk);border-bottom:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden}
+.blog-hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--au) 40%,var(--au) 60%,transparent);opacity:.2}
+.bh-in{max-width:1300px;margin:0 auto}
+.bh-eye{display:flex;align-items:center;gap:.875rem;margin-bottom:1.5rem}
+.bh-eye-l{width:22px;height:1px;background:var(--au)}
+.bh-eye span{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--au)}
+.bh-title{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(3rem,5vw,5.5rem);line-height:.97;letter-spacing:-.02em;color:var(--wht);margin-bottom:1.5rem}
+.bh-title em{font-style:italic;color:var(--m5)}
+.bh-sub{font-size:.9375rem;color:var(--m2);max-width:560px;font-weight:300;line-height:1.85;margin-bottom:2.5rem}
+/* Filter tabs */
+.filter-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.f-btn{font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,.12);padding:.5rem 1.25rem;background:transparent;color:var(--m3);transition:all .22s;font-family:'DM Sans',sans-serif}
+.f-btn:hover,.f-btn.active{background:var(--au);border-color:var(--au);color:var(--blk);font-weight:500}
+
+/* FEATURED POST */
+.featured-wrap{background:var(--i1);border-bottom:1px solid rgba(255,255,255,.06);padding:5rem 3rem}
+.fw-in{max-width:1300px;margin:0 auto}
+.feat-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--au);margin-bottom:1.75rem;display:flex;align-items:center;gap:.625rem}
+.feat-label::before{content:'';width:14px;height:1px;background:var(--au)}
+.feat-grid{display:grid;grid-template-columns:1fr 400px;gap:5rem;align-items:center}
+.feat-content{}
+.feat-category{font-size:9px;letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--aul);color:var(--au);padding:.3rem .75rem;display:inline-block;margin-bottom:1.5rem}
+.feat-title{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(2rem,3.5vw,3.25rem);line-height:1.08;letter-spacing:-.02em;color:var(--wht);margin-bottom:1.25rem}
+.feat-title em{font-style:italic}
+.feat-excerpt{font-size:.9375rem;line-height:1.85;color:var(--m2);margin-bottom:2rem;font-weight:300;max-width:520px}
+.feat-meta{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem}
+.feat-author{display:flex;align-items:center;gap:.625rem}
+.feat-av{width:32px;height:32px;border-radius:50%;background:var(--i3);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--au);font-weight:500}
+.feat-an{font-size:12px;color:var(--m4);font-weight:300}
+.feat-date{font-size:11px;color:var(--m2);letter-spacing:.06em}
+.feat-read-time{font-size:11px;color:var(--m2)}
+.feat-sep{width:1px;height:14px;background:rgba(255,255,255,.12)}
+.read-btn{display:inline-flex;align-items:center;gap:.625rem;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--blk);background:var(--wht);padding:.875rem 2.25rem;text-decoration:none;font-weight:500;transition:background .2s}
+.read-btn:hover{background:var(--au)}
+.read-btn-arrow{transition:transform .22s}
+.read-btn:hover .read-btn-arrow{transform:translateX(4px)}
+/* Featured visual panel */
+.feat-visual{background:var(--i2);border:1px solid rgba(255,255,255,.07);padding:2.5rem;position:relative}
+.feat-visual::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:1px;background:var(--au)}
+.fv-tag{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--au);margin-bottom:1.5rem}
+.fv-list{}
+.fv-item{padding:.875rem 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:.875rem;align-items:flex-start}
+.fv-item:last-child{border-bottom:none}
+.fv-dot{width:5px;height:5px;border-radius:50%;border:1px solid var(--au);flex-shrink:0;margin-top:5px}
+.fv-title{font-size:12.5px;font-weight:500;color:var(--wht);margin-bottom:2px}
+.fv-desc{font-size:11px;color:var(--m2);line-height:1.55;font-weight:300}
+
+/* POSTS GRID */
+.posts-wrap{padding:5rem 3rem;background:var(--blk)}
+.pw-in{max-width:1300px;margin:0 auto}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:3rem}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--wht);letter-spacing:.02em}
+.sh-line{flex:1;height:1px;background:rgba(255,255,255,.06);margin:0 2rem}
+.posts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);margin-bottom:1px}
+/* Post card */
+.pc{background:var(--i1);transition:background .28s;display:flex;flex-direction:column;position:relative}
+.pc:hover{background:var(--i2)}
+.pc::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--au);transition:width .38s}
+.pc:hover::after{width:100%}
+.pc-top{padding:2rem 2rem 0}
+.pc-cat{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--au);margin-bottom:1.125rem;display:flex;align-items:center;gap:.5rem}
+.pc-cat-dot{width:4px;height:4px;border-radius:50%;background:var(--au)}
+.pc-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:var(--wht);line-height:1.3;letter-spacing:.01em;margin-bottom:.875rem}
+.pc-excerpt{font-size:12.5px;line-height:1.78;color:var(--m2);font-weight:300;margin-bottom:1.5rem}
+.pc-divider{height:1px;background:rgba(255,255,255,.06);margin:0 2rem}
+.pc-bottom{padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.pc-meta{display:flex;align-items:center;gap:.75rem}
+.pc-av{width:26px;height:26px;border-radius:50%;background:var(--i3);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--au);font-weight:500;flex-shrink:0}
+.pc-author{font-size:11px;color:var(--m3);font-weight:300}
+.pc-date{font-size:10.5px;color:var(--m2);letter-spacing:.04em}
+.pc-arrow{width:28px;height:28px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;transition:all .22s;flex-shrink:0}
+.pc:hover .pc-arrow{background:var(--au);border-color:var(--au)}
+.pc-arrow svg{width:12px;height:12px;stroke:var(--wht);stroke-width:2;fill:none;stroke-linecap:round;transition:stroke .22s}
+.pc:hover .pc-arrow svg{stroke:var(--blk)}
+/* Tag chips */
+.pc-tags{display:flex;flex-wrap:wrap;gap:.3rem;padding:0 2rem 1.5rem}
+.pc-tag{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);color:var(--m3);padding:.2rem .55rem;transition:border-color .2s}
+.pc:hover .pc-tag{border-color:var(--aul)}
+
+/* FULL-WIDTH ROW (2-col) */
+.posts-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-top:none;margin-bottom:4rem}
+
+/* NEWSLETTER */
+.nl-sec{background:var(--i1);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);padding:5rem 3rem}
+.nl-in{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 480px;gap:5rem;align-items:center}
+.nl-left h2{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(2rem,3vw,3rem);color:var(--wht);line-height:1.1;letter-spacing:-.02em;margin-bottom:.875rem}
+.nl-left h2 em{font-style:italic}
+.nl-left p{font-size:.9rem;color:var(--m2);line-height:1.85;font-weight:300;max-width:420px}
+.nl-form{background:var(--i2);border:1px solid rgba(255,255,255,.07);padding:2.25rem;position:relative}
+.nl-form::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:1px;background:var(--au)}
+.nl-form h3{font-family:'Cormorant Garamond',serif;font-size:1.375rem;color:var(--wht);margin-bottom:.375rem;letter-spacing:.01em}
+.nl-form p{font-size:12px;color:var(--m2);margin-bottom:1.5rem;font-weight:300}
+.nl-row{display:flex;gap:.5rem}
+.nl-input{flex:1;background:var(--i1);border:1px solid rgba(255,255,255,.1);padding:.75rem 1rem;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--wht);outline:none;transition:border-color .22s}
+.nl-input::placeholder{color:var(--m1)}
+.nl-input:focus{border-color:rgba(201,168,76,.4)}
+.nl-btn{background:var(--au);color:var(--blk);font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:600;border:none;padding:.75rem 1.375rem;white-space:nowrap;transition:background .2s}
+.nl-btn:hover{background:var(--au2)}
+.nl-note{font-size:10px;color:var(--m1);margin-top:.875rem;letter-spacing:.04em}
+/* Topic chips */
+.nl-topics{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:1.25rem}
+.nl-topic{font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(201,168,76,.2);color:var(--au);padding:.25rem .625rem}
+
+/* TOPICS SIDEBAR SECTION */
+.topics-wrap{padding:5rem 3rem;background:var(--i1);border-bottom:1px solid rgba(255,255,255,.06)}
+.tw-in{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem}
+.topic-card{background:var(--i2);border:1px solid rgba(255,255,255,.07);padding:2rem;position:relative;transition:background .28s}
+.topic-card:hover{background:var(--i3)}
+.topic-card::before{content:'';position:absolute;top:-1px;left:1.5rem;width:32px;height:1px;background:var(--au)}
+.tc-icon{width:38px;height:38px;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.tc-icon svg{width:16px;height:16px;stroke:var(--au);stroke-width:1.5;fill:none;stroke-linecap:round}
+.tc-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--wht);margin-bottom:.5rem;letter-spacing:.01em}
+.tc-desc{font-size:12.5px;color:var(--m2);line-height:1.7;font-weight:300;margin-bottom:1rem}
+.tc-count{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--au)}
+
+/* ARTICLE MODAL / FULL READ */
+.article-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:900;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px)}
+.article-overlay.open{opacity:1;pointer-events:all}
+.article-panel{position:fixed;top:0;right:0;bottom:0;width:min(860px,100vw);background:var(--i1);z-index:901;transform:translateX(100%);transition:transform .4s ease;overflow-y:auto;border-left:1px solid rgba(255,255,255,.08)}
+.article-panel.open{transform:translateX(0)}
+.ap-header{padding:2.5rem 3rem 2rem;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;background:var(--i1);z-index:2}
+.ap-close{background:none;border:1px solid rgba(255,255,255,.12);width:36px;height:36px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;transition:border-color .2s;float:right;margin-top:-36px}
+.ap-close:hover{border-color:var(--au)}
+.ap-close svg{width:14px;height:14px;stroke:var(--wht);stroke-width:1.8;fill:none;stroke-linecap:round}
+.ap-cat{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--au);margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem;clear:both}
+.ap-cat::before{content:'';width:12px;height:1px;background:var(--au)}
+.ap-title{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(1.875rem,3vw,2.75rem);line-height:1.08;letter-spacing:-.02em;color:var(--wht);margin-bottom:1.25rem}
+.ap-title em{font-style:italic}
+.ap-meta{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.ap-av{width:34px;height:34px;border-radius:50%;background:var(--i3);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--au);font-weight:500}
+.ap-author{font-size:12.5px;color:var(--m4);font-weight:300}
+.ap-date{font-size:11.5px;color:var(--m2)}
+.ap-rt{font-size:11.5px;color:var(--m2)}
+.ap-sep{width:1px;height:14px;background:rgba(255,255,255,.12)}
+.ap-body{padding:3rem}
+.ap-body h2{font-family:'Cormorant Garamond',serif;font-size:1.625rem;color:var(--wht);margin:2.5rem 0 1rem;letter-spacing:.01em;line-height:1.3}
+.ap-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--wht);margin:2rem 0 .75rem;letter-spacing:.01em}
+.ap-body p{font-size:.9375rem;line-height:1.9;color:var(--m4);margin-bottom:1.375rem;font-weight:300}
+.ap-body p strong{color:var(--wht);font-weight:500}
+.ap-body ul,.ap-body ol{margin:0 0 1.5rem 1.5rem}
+.ap-body li{font-size:.9375rem;line-height:1.85;color:var(--m4);margin-bottom:.5rem;font-weight:300}
+.ap-body li strong{color:var(--wht);font-weight:500}
+.ap-callout{background:var(--i2);border-left:2px solid var(--au);padding:1.5rem 1.75rem;margin:2rem 0;position:relative}
+.ap-callout::before{content:'Key Point';position:absolute;top:-9px;left:1.5rem;font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--au);background:var(--i2);padding:0 .5rem}
+.ap-callout p{margin-bottom:0;color:var(--m5);font-size:.9rem}
+.ap-table{width:100%;border-collapse:collapse;margin:1.5rem 0 2rem}
+.ap-table th{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--au);padding:.75rem 1rem;border-bottom:1px solid rgba(201,168,76,.2);text-align:left;font-weight:500}
+.ap-table td{font-size:13px;color:var(--m3);padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.55;font-weight:300}
+.ap-table tr:hover td{background:rgba(255,255,255,.02);color:var(--m4)}
+.ap-tags{display:flex;flex-wrap:wrap;gap:.375rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06)}
+.ap-tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.1);color:var(--m3);padding:.3rem .7rem}
+/* Back to top in panel */
+.ap-cta{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06)}
+.ap-cta p{font-size:12.5px;color:var(--m2);margin-bottom:1rem;font-weight:300}
+.ap-cta a{display:inline-flex;align-items:center;gap:.5rem;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--blk);background:var(--wht);padding:.75rem 2rem;text-decoration:none;font-weight:500;transition:background .2s}
+.ap-cta a:hover{background:var(--au)}
+
+/* FOOTER */
+footer{background:var(--i2);border-top:1px solid rgba(255,255,255,.06);padding:4rem 3rem 2rem}
+.ft-in{max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.ft-brand{font-family:'Cormorant Garamond',serif;font-size:1.125rem;color:var(--wht);letter-spacing:.04em}
+.ft-brand span{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--au);display:block;margin-bottom:2px}
+.ft-links{display:flex;gap:2rem}
+.ft-links a{font-size:12px;color:var(--m2);text-decoration:none;transition:color .2s;font-weight:300}
+.ft-links a:hover{color:var(--wht)}
+.ft-copy{font-size:11px;color:var(--m1);font-weight:300}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1080px){
+  .feat-grid,.nl-in,.tw-in{grid-template-columns:1fr;gap:2.5rem}
+  .posts-grid{grid-template-columns:1fr 1fr}
+  .posts-grid-2{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .posts-grid,.posts-grid-2{grid-template-columns:1fr}
+  .nl-links,.nl-cta{display:none}
+  nav,.blog-hero,.featured-wrap,.posts-wrap,.nl-sec,.topics-wrap,footer{padding-left:1.5rem;padding-right:1.5rem}
+  .article-panel{width:100vw}
+  .ap-body,.ap-header{padding-left:1.5rem;padding-right:1.5rem}
+  #dot,#ring{display:none}
+  *{cursor:auto}
+}
+</style>
+</head>
+<body>
+<div id="dot"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nw">
+    <a href="gvp_pv_quality_compliance_site.html" class="nl-brand">
+      <span class="nl-eye">GVP Services</span>
+      <span class="nl-name">Rizonex</span>
+    </a>
+    <div class="nl-links">
+      <a href="gvp_pv_quality_compliance_site.html#services">Services</a>
+      <a href="gvp_pv_quality_compliance_site.html#team">Team</a>
+      <a href="gvp_pv_quality_compliance_site.html#approach">Approach</a>
+      <a href="gvp_pv_quality_compliance_site.html#why">Why Us</a>
+      <a href="blog.html" class="active">Blog</a>
+      <a href="gvp_pv_quality_compliance_site.html#contact">Contact</a>
+    </div>
+    <a href="gvp_pv_quality_compliance_site.html#contact" class="nl-cta">Book Consultation</a>
+  </div>
+</nav>
+
+<!-- BLOG HERO -->
+<div class="blog-hero">
+  <div class="bh-in">
+    <div class="bh-eye"><div class="bh-eye-l"></div><span>Rizonex Insights</span></div>
+    <h1 class="bh-title">PV Regulatory<br><em>Intelligence</em></h1>
+    <p class="bh-sub">In-depth analysis of the latest GVP regulatory updates, ICSR guidance, signal management developments, and pharmacovigilance system best practices — written by our senior experts.</p>
+    <div class="filter-row">
+      <button class="f-btn active" onclick="filterPosts('all',this)">All Topics</button>
+      <button class="f-btn" onclick="filterPosts('gvp',this)">GVP Modules</button>
+      <button class="f-btn" onclick="filterPosts('icsr',this)">ICSR &amp; Reporting</button>
+      <button class="f-btn" onclick="filterPosts('signal',this)">Signal Management</button>
+      <button class="f-btn" onclick="filterPosts('inspection',this)">Inspections &amp; CAPA</button>
+      <button class="f-btn" onclick="filterPosts('systems',this)">PV Systems</button>
+      <button class="f-btn" onclick="filterPosts('qppv',this)">QPPV &amp; Governance</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED POST -->
+<div class="featured-wrap">
+  <div class="fw-in">
+    <div class="feat-label">Featured Article</div>
+    <div class="feat-grid">
+      <div class="feat-content">
+        <div class="feat-category">GVP Modules · EMA Guidance</div>
+        <h2 class="feat-title">EMA's Revised GVP Module IX:<br>What the <em>2024 Signal Management</em><br>Changes Mean for MAHs</h2>
+        <p class="feat-excerpt">The European Medicines Agency's updated guidance on signal management under GVP Module IX introduces significant changes to the documentation, escalation, and reporting obligations for Marketing Authorisation Holders. This article breaks down the key amendments, regulatory timeline, and what you need to do before your next inspection.</p>
+        <div class="feat-meta">
+          <div class="feat-author">
+            <div class="feat-av">PP</div>
+            <span class="feat-an">Pavan Prasad Rajavasireddy</span>
+          </div>
+          <div class="feat-sep"></div>
+          <span class="feat-date">March 2025</span>
+          <div class="feat-sep"></div>
+          <span class="feat-read-time">12 min read</span>
+        </div>
+        <a href="#" class="read-btn" onclick="openArticle('gvp-module-ix');return false;">Read Full Article <span class="read-btn-arrow">→</span></a>
+      </div>
+      <div class="feat-visual">
+        <div class="fv-tag">Key Changes in GVP Module IX (2024)</div>
+        <div class="fv-list">
+          <div class="fv-item"><div class="fv-dot"></div><div><div class="fv-title">Revised signal documentation requirements</div><div class="fv-desc">New mandatory fields in signal assessment reports and tighter timelines for PRAC submissions</div></div></div>
+          <div class="fv-item"><div class="fv-dot"></div><div><div class="fv-title">Expanded scope for biosimilars</div><div class="fv-desc">Specific signal management provisions for biological medicinal products now embedded in Module IX</div></div></div>
+          <div class="fv-item"><div class="fv-dot"></div><div><div class="fv-title">Digital signal detection systems</div><div class="fv-desc">Guidance on automated signal detection tool validation and audit trail requirements</div></div></div>
+          <div class="fv-item"><div class="fv-dot"></div><div><div class="fv-title">QPPV oversight documentation</div><div class="fv-desc">Explicit requirements for QPPV sign-off records on all signal tracking activities</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POSTS GRID -->
+<div class="posts-wrap">
+  <div class="pw-in">
+
+    <div class="section-hdr">
+      <div class="sh-title">Latest Articles</div>
+      <div class="sh-line"></div>
+    </div>
+
+    <!-- Row 1: 3-col -->
+    <div class="posts-grid" id="posts-container">
+
+      <!-- POST 1 -->
+      <div class="pc reveal" data-category="icsr">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>ICSR &amp; Reporting</div>
+          <div class="pc-title">MHRA Post-Brexit ICSR Requirements: A 2025 Compliance Checklist</div>
+          <p class="pc-excerpt">With the UK now operating fully independent of EudraVigilance, MAHs holding both EU and GB licences face dual reporting obligations. We map out every requirement, deadline, and system configuration you need to manage.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">MHRA</span><span class="pc-tag">EudraVigilance</span><span class="pc-tag">UK SUSAR</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">YS</div>
+            <div>
+              <div class="pc-author">Dr. Yeshwanth Sankranthi</div>
+              <div class="pc-date">Feb 2025 · 9 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('mhra-icsr')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 2 -->
+      <div class="pc reveal" data-category="systems">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>PV Systems</div>
+          <div class="pc-title">PSMF Annex Maintenance: The Five Mistakes That Trigger Inspection Findings</div>
+          <p class="pc-excerpt">Pharmacovigilance System Master Files are the single most scrutinised document during EMA and MHRA inspections. We analyse the five recurring gaps we see in PSMF annexes and how to close them before your next audit.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">PSMF</span><span class="pc-tag">Annexes</span><span class="pc-tag">Inspection</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">PP</div>
+            <div>
+              <div class="pc-author">Pavan Prasad Rajavasireddy</div>
+              <div class="pc-date">Jan 2025 · 11 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('psmf-annexes')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 3 -->
+      <div class="pc reveal" data-category="qppv">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>QPPV &amp; Governance</div>
+          <div class="pc-title">Structuring QPPV Oversight for Multi-Product Biotech: A Governance Framework</div>
+          <p class="pc-excerpt">As biotech companies scale from single-asset to multi-product portfolios, the QPPV oversight model must evolve. This article presents a tiered governance framework aligned to GVP Module I requirements and EMA inspection expectations.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">QPPV</span><span class="pc-tag">GVP Module I</span><span class="pc-tag">Governance</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">ML</div>
+            <div>
+              <div class="pc-author">Dr. Maha Lakshmi Elluri</div>
+              <div class="pc-date">Jan 2025 · 10 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('qppv-governance')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 4 -->
+      <div class="pc reveal" data-category="inspection">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>Inspections &amp; CAPA</div>
+          <div class="pc-title">Anatomy of an EMA GVP Inspection: What Inspectors Look at in 2025</div>
+          <p class="pc-excerpt">Based on published EMA inspection outcome reports and our direct experience preparing clients, this article maps the exact documentation, SOPs, and staff readiness areas that EMA inspectors prioritise in GVP compliance inspections.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">EMA Inspection</span><span class="pc-tag">Critical Findings</span><span class="pc-tag">Readiness</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">PP</div>
+            <div>
+              <div class="pc-author">Pavan Prasad Rajavasireddy</div>
+              <div class="pc-date">Dec 2024 · 14 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('ema-inspection')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 5 -->
+      <div class="pc reveal" data-category="signal">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>Signal Management</div>
+          <div class="pc-title">Disproportionality Analysis in Small Databases: Navigating the Limitations of PRR and ROR for Early-Stage Drugs</div>
+          <p class="pc-excerpt">Proportional Reporting Ratios and Reporting Odds Ratios lose statistical power when case counts are low — a common challenge for early-stage or rare-disease products. We examine alternative approaches and documentation strategies that satisfy regulators.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Signal Detection</span><span class="pc-tag">PRR</span><span class="pc-tag">Rare Disease</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">YS</div>
+            <div>
+              <div class="pc-author">Dr. Yeshwanth Sankranthi</div>
+              <div class="pc-date">Nov 2024 · 13 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('signal-small-db')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 6 -->
+      <div class="pc reveal" data-category="gvp">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>GVP Modules</div>
+          <div class="pc-title">GVP Module XVI Update: How the Revised RMP Guidance Changes Risk Minimisation Planning</div>
+          <p class="pc-excerpt">The 2024 revision of GVP Module XVI on Risk Management Plans significantly changes how MAHs must structure, justify, and assess the effectiveness of their risk minimisation measures. A detailed walkthrough of what has changed and what now needs updating in your RMP.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">RMP</span><span class="pc-tag">GVP Module XVI</span><span class="pc-tag">Risk Minimisation</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">ML</div>
+            <div>
+              <div class="pc-author">Dr. Maha Lakshmi Elluri</div>
+              <div class="pc-date">Oct 2024 · 10 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('gvp-xvi')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+    </div><!-- /posts-grid -->
+
+    <!-- Row 2: 2-col wider posts -->
+    <div class="posts-grid-2" id="posts-container-2">
+
+      <!-- POST 7 -->
+      <div class="pc reveal" data-category="systems">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>PV Systems · Technology</div>
+          <div class="pc-title">Argus vs ARISg vs Veeva Vault Safety: Choosing the Right Safety Database for a Growing Biotech in 2025</div>
+          <p class="pc-excerpt">The choice of safety database has long-term operational and compliance implications. We compare the three leading systems on regulatory compliance capability, ICSR processing efficiency, signal management integration, and total cost of ownership — with a framework tailored to biotech organisations at Series B through commercial stage. This article does not constitute a commercial endorsement; it reflects our independent assessment based on client implementations.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Safety DB</span><span class="pc-tag">Argus</span><span class="pc-tag">Veeva Vault</span><span class="pc-tag">ARISg</span><span class="pc-tag">Technology</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">AS</div>
+            <div>
+              <div class="pc-author">Dr. Akhil Sunkari</div>
+              <div class="pc-date">Sep 2024 · 16 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('safety-db-comparison')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+      <!-- POST 8 -->
+      <div class="pc reveal" data-category="inspection">
+        <div class="pc-top">
+          <div class="pc-cat"><div class="pc-cat-dot"></div>Inspections &amp; CAPA · Vendor Oversight</div>
+          <div class="pc-title">Building an Audit-Ready Vendor Oversight Programme: Quality Agreements, KPIs, and the Documentation Regulators Expect</div>
+          <p class="pc-excerpt">Vendor-related findings are among the most common critical observations in EMA GVP inspections. This in-depth guide covers the structure of compliant Quality and Pharmacovigilance Agreements, KPI frameworks for CRO and affiliate oversight, the governance records that demonstrate genuine oversight rather than contractual box-ticking, and how to manage deviations before an inspector sees them.</p>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Vendor Oversight</span><span class="pc-tag">QAA</span><span class="pc-tag">KPIs</span><span class="pc-tag">CRO</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-bottom">
+          <div class="pc-meta">
+            <div class="pc-av">PP</div>
+            <div>
+              <div class="pc-author">Pavan Prasad Rajavasireddy</div>
+              <div class="pc-date">Aug 2024 · 15 min</div>
+            </div>
+          </div>
+          <div class="pc-arrow" onclick="openArticle('vendor-oversight')"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></div>
+        </div>
+      </div>
+
+    </div><!-- /posts-grid-2 -->
+
+  </div>
+</div>
+
+<!-- TOPICS SECTION -->
+<div class="topics-wrap">
+  <div class="tw-in">
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="tc-name">GVP Module Guidance</div>
+      <p class="tc-desc">Detailed analysis of EMA and MHRA GVP module revisions, implementation requirements, and compliance checklists for all active modules.</p>
+      <div class="tc-count">8 Articles</div>
+    </div>
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+      <div class="tc-name">Signal Management</div>
+      <p class="tc-desc">Methodologies for signal detection, validation, and assessment — from disproportionality analysis to PRAC-aligned signal tracking systems.</p>
+      <div class="tc-count">6 Articles</div>
+    </div>
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+      <div class="tc-name">ICSR &amp; Timelines</div>
+      <p class="tc-desc">ICSR processing best practices, 15-day and 90-day deadline management, EudraVigilance and MHRA gateway compliance guides.</p>
+      <div class="tc-count">5 Articles</div>
+    </div>
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div class="tc-name">Inspections &amp; CAPA</div>
+      <p class="tc-desc">Inspection readiness strategies, mock audit frameworks, critical and major finding patterns, and effective CAPA management approaches.</p>
+      <div class="tc-count">7 Articles</div>
+    </div>
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="tc-name">PV Systems &amp; Technology</div>
+      <p class="tc-desc">Safety database comparisons, validation requirements, AI in pharmacovigilance, and digital system governance under GVP.</p>
+      <div class="tc-count">4 Articles</div>
+    </div>
+    <div class="topic-card reveal">
+      <div class="tc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="tc-name">QPPV &amp; Governance</div>
+      <p class="tc-desc">QPPV role requirements, oversight structures, operating model design, and governance frameworks for MAHs across all development stages.</p>
+      <div class="tc-count">5 Articles</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl-sec">
+  <div class="nl-in">
+    <div class="nl-left">
+      <h2>Stay ahead of<br><em>every GVP update</em></h2>
+      <p>We publish in-depth regulatory analysis written by our senior pharmacovigilance experts — not summaries, not press releases. Delivered when it matters.</p>
+      <div class="nl-topics">
+        <span class="nl-topic">GVP Modules</span>
+        <span class="nl-topic">EMA Updates</span>
+        <span class="nl-topic">MHRA Guidance</span>
+        <span class="nl-topic">ICH Guidelines</span>
+        <span class="nl-topic">FDA PV</span>
+        <span class="nl-topic">Signal Mgmt</span>
+      </div>
+    </div>
+    <div class="nl-form">
+      <h3>Subscribe to Rizonex Insights</h3>
+      <p>One email per article. No marketing. Unsubscribe anytime.</p>
+      <div class="nl-row">
+        <input class="nl-input" type="email" placeholder="your@email.com"/>
+        <button class="nl-btn">Subscribe</button>
+      </div>
+      <p class="nl-note">We respect your inbox. Articles only — no promotional emails.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE OVERLAY -->
+<div class="article-overlay" id="overlay" onclick="closeArticle()"></div>
+<div class="article-panel" id="article-panel">
+  <div class="ap-header" id="ap-header">
+    <!-- Populated by JS -->
+  </div>
+  <div class="ap-body" id="ap-body">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-brand">
+      <span>Where Safety Meets Precision</span>
+      Rizonex
+    </div>
+    <div class="ft-links">
+      <a href="gvp_pv_quality_compliance_site.html">Home</a>
+      <a href="gvp_pv_quality_compliance_site.html#services">Services</a>
+      <a href="gvp_pv_quality_compliance_site.html#team">Team</a>
+      <a href="gvp_pv_quality_compliance_site.html#contact">Contact</a>
+    </div>
+    <div class="ft-copy">© 2025 Rizonex. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const dot=document.getElementById('dot'),ring=document.getElementById('ring');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
+
+// Scroll reveal
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Filter
+function filterPosts(cat, btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pc').forEach(card=>{
+    const show = cat==='all' || card.dataset.category===cat;
+    card.style.display = show ? 'flex' : 'none';
+  });
+}
+
+// Article modal
+const articles = {
+  'gvp-module-ix':{
+    cat:'GVP Modules · EMA Guidance',
+    title:'EMA\'s Revised GVP Module IX: What the 2024 Signal Management Changes Mean for MAHs',
+    author:'Pavan Prasad Rajavasireddy', initials:'PP',
+    date:'March 2025', rt:'12 min read',
+    body:`
+      <p>The European Medicines Agency finalised its revision of GVP Module IX on Signal Management in late 2024, with the updated guidance entering into effect for all Marketing Authorisation Holders operating under EU law. The revision is one of the most substantive updates to signal management documentation requirements in over a decade, and its implications extend well beyond procedural changes.</p>
+      <h2>Background: Why Module IX Was Revised</h2>
+      <p>The original GVP Module IX was published in 2012 and amended in 2017. Since then, the pharmacovigilance landscape has changed substantially: <strong>the volume of spontaneous reports has grown significantly</strong>, automated signal detection systems have become standard, and regulators have developed clearer expectations around what constitutes a "validated" signal versus a "potential" one.</p>
+      <p>The 2024 revision responds to inspection findings from EMA and national competent authorities showing inconsistency in how MAHs were documenting signal assessment rationale, closing detected signals, and evidencing QPPV oversight of the signal management process.</p>
+      <div class="ap-callout"><p>The revised Module IX now explicitly states that all signal tracking activities must be "adequately documented in the pharmacovigilance system with a complete audit trail accessible to the QPPV at all times." This seemingly simple sentence has major system and governance implications.</p></div>
+      <h2>Key Changes MAHs Need to Act On</h2>
+      <h3>1. Signal Assessment Documentation Requirements</h3>
+      <p>The revised guidance requires that signal assessment reports include: the data sources reviewed; the methodology applied (including any automated detection tool used and its validation status); a clearly stated causality assessment with explicit reasoning; the conclusion on whether the signal has been validated; and the decision on whether regulatory action is warranted.</p>
+      <p>Critically, the guidance now distinguishes between signals arising from <strong>spontaneous reporting databases</strong>, <strong>clinical trial data</strong>, <strong>literature</strong>, and <strong>real-world evidence sources</strong>, and requires that the documentation reflect which source triggered the signal evaluation.</p>
+      <h3>2. Timelines for Signal Evaluation</h3>
+      <table class="ap-table">
+        <thead><tr><th>Signal Type</th><th>Detection to Triage</th><th>Triage to Assessment</th><th>Assessment to Conclusion</th></tr></thead>
+        <tbody>
+          <tr><td>Serious unexpected safety signal</td><td>5 working days</td><td>10 working days</td><td>30 calendar days</td></tr>
+          <tr><td>Unexpected non-serious signal</td><td>10 working days</td><td>20 working days</td><td>60 calendar days</td></tr>
+          <tr><td>Routine cumulative review signal</td><td>At next PBRER cycle</td><td>Within PBRER period</td><td>PBRER submission</td></tr>
+          <tr><td>Literature-derived signal</td><td>10 working days</td><td>20 working days</td><td>60 calendar days</td></tr>
+        </tbody>
+      </table>
+      <h3>3. QPPV Oversight Documentation</h3>
+      <p>One of the clearest new requirements is the need for <strong>explicit QPPV sign-off records</strong> on signal management activities. The revised Module IX states that the QPPV must formally review and approve: the signal tracking methodology; any decision to close a potential signal without full assessment; all validated signals and the proposed regulatory actions; and the quarterly signal management summary.</p>
+      <p>In practice, this means organisations need a documented sign-off mechanism — whether in their safety database, a dedicated signal tracking tool, or a controlled document — that creates a timestamped record of QPPV review. A general statement in the PSMF that "the QPPV oversees signal management" will no longer be sufficient.</p>
+      <h3>4. Implications for Automated Signal Detection</h3>
+      <p>MAHs using automated disproportionality analysis tools — including Oracle Empirica Signal, Vigil, or proprietary systems — must now maintain <strong>validation documentation</strong> for those systems as part of the PV system. The revised guidance requires: a system description; evidence of validation including test cases and expected vs. actual outputs; version control records; and a periodic review process.</p>
+      <div class="ap-callout"><p>If your safety database automatically flags potential signals using PRR or EBGM algorithms, that algorithm's configuration, validation, and any parameter changes now need to be documented in a controlled fashion and referenced in the PSMF.</p></div>
+      <h2>What You Should Do Before Your Next Inspection</h2>
+      <p>Based on our assessment of the revised guidance and our knowledge of current EMA inspection focus areas, we recommend the following priority actions for all MAHs:</p>
+      <ul>
+        <li><strong>Review your signal tracking SOP</strong> against the new timeline requirements and update where gaps exist.</li>
+        <li><strong>Audit your signal assessment report template</strong> to ensure all newly required fields are present — particularly source identification, methodology, and QPPV sign-off sections.</li>
+        <li><strong>Check your PSMF Annex</strong> that describes your signal management system — it should now reference any automated tools and their validation status.</li>
+        <li><strong>Implement a QPPV sign-off mechanism</strong> that creates an auditable record for the five categories listed in the revised guidance.</li>
+        <li><strong>Review your vendor agreements</strong> with CROs or safety database providers to confirm they can support the new documentation requirements.</li>
+      </ul>
+      <div class="ap-tags">
+        <span class="ap-tag">GVP Module IX</span><span class="ap-tag">Signal Management</span><span class="ap-tag">EMA 2024</span><span class="ap-tag">QPPV Oversight</span><span class="ap-tag">Inspection Readiness</span>
+      </div>
+      <div class="ap-cta">
+        <p>Need help assessing your signal management system against the revised Module IX requirements? Our team can conduct a targeted gap assessment and prepare remediation recommendations.</p>
+        <a href="gvp_pv_quality_compliance_site.html#contact">Request a Signal Management Review →</a>
+      </div>`
+  },
+  'ema-inspection':{
+    cat:'Inspections & CAPA',
+    title:'Anatomy of an EMA GVP Inspection: What Inspectors Look at in 2025',
+    author:'Pavan Prasad Rajavasireddy', initials:'PP',
+    date:'December 2024', rt:'14 min read',
+    body:`
+      <p>EMA GVP inspections have become significantly more targeted since 2022. Based on published inspection outcome reports, MHRA annual inspection data, and our direct experience preparing clients, this article maps exactly what inspectors focus on — and the documentation gaps most likely to generate findings.</p>
+      <h2>The Inspection Framework</h2>
+      <p>EMA GVP inspections follow a structured programme. Inspectors work from a standard inspection protocol that has evolved over successive inspection cycles. The 2024–2025 protocol places particular emphasis on three areas: <strong>ICSR completeness and timeliness</strong>, <strong>QPPV oversight evidence</strong>, and <strong>signal management system quality</strong>.</p>
+      <h2>The Most Common Critical Findings (2022–2024)</h2>
+      <table class="ap-table">
+        <thead><tr><th>Finding Category</th><th>Frequency</th><th>Root Cause Pattern</th></tr></thead>
+        <tbody>
+          <tr><td>ICSR late submission</td><td>Very High</td><td>Workflow gaps, staff training deficits</td></tr>
+          <tr><td>PSMF inaccurate/not current</td><td>High</td><td>No designated owner, no review schedule</td></tr>
+          <tr><td>Signal management documentation gaps</td><td>High</td><td>SOP not followed, no audit trail</td></tr>
+          <tr><td>Vendor oversight insufficient</td><td>High</td><td>QAAs not current, no KPI tracking</td></tr>
+          <tr><td>QPPV oversight not documented</td><td>Medium</td><td>Sign-off not recorded, delegations unclear</td></tr>
+          <tr><td>SOP not implemented as written</td><td>Medium</td><td>Training gaps, SOP not reflected in practice</td></tr>
+        </tbody>
+      </table>
+      <div class="ap-callout"><p>In over 70% of EMA GVP inspections that result in a critical finding, the root cause is not the absence of an SOP — it is the absence of evidence that the SOP was followed. Documentation and audit trails are everything.</p></div>
+      <h2>Day-by-Day: What an Inspection Looks Like</h2>
+      <p>A typical EMA GVP inspection spans three to four days on site, preceded by a document request phase that begins six to eight weeks before the inspection date. The document request typically covers: the PSMF and all current annexes; the last three years of signal assessment records; ICSR line listings with submission dates; vendor QAAs and oversight records; training records for all staff with PV responsibilities; and CAPA logs from previous audits.</p>
+      <p>Day one typically focuses on the PSMF review and opening meetings with the QPPV. Inspectors will ask the QPPV to walk through the system description and demonstrate that it reflects actual practice. Inconsistencies between the PSMF description and what staff describe in interviews are a major red flag.</p>
+      <div class="ap-tags">
+        <span class="ap-tag">EMA Inspection</span><span class="ap-tag">GVP</span><span class="ap-tag">Critical Findings</span><span class="ap-tag">PSMF</span><span class="ap-tag">QPPV</span>
+      </div>
+      <div class="ap-cta">
+        <p>Rizonex offers structured 2-day mock inspections with former regulatory inspectors. Contact us to book one ahead of your next EMA or MHRA inspection.</p>
+        <a href="gvp_pv_quality_compliance_site.html#contact">Book a Mock Inspection →</a>
+      </div>`
+  },
+  'mhra-icsr':{
+    cat:'ICSR & Reporting · MHRA',
+    title:'MHRA Post-Brexit ICSR Requirements: A 2025 Compliance Checklist',
+    author:'Dr. Yeshwanth Sankranthi', initials:'YS',
+    date:'February 2025', rt:'9 min read',
+    body:`
+      <p>Since the UK's departure from the EU regulatory framework, Marketing Authorisation Holders with licences in both the UK (GB, and where applicable Northern Ireland) and the EU have faced dual ICSR reporting obligations. While the initial transition period has passed, our experience supporting clients through MHRA inspections in 2024 confirms that many organisations still have gaps in their dual-reporting processes.</p>
+      <h2>The Core Difference: Two Systems, Two Timelines, Same Cases</h2>
+      <p>The fundamental compliance challenge is this: the same adverse event case may need to be reported to both EudraVigilance (via EU gateway) and the MHRA Yellow Card system (via MHRA gateway) — but the two systems have different technical specifications, different acknowledgement processes, and subtly different data requirements in some fields.</p>
+      <div class="ap-callout"><p>A case that is correctly submitted to EudraVigilance may still be considered non-compliant for MHRA purposes if the UK-specific data fields are not populated, or if the case is submitted to the wrong national competent authority for Northern Ireland products.</p></div>
+      <h2>2025 MHRA ICSR Compliance Checklist</h2>
+      <p>The following checklist covers the areas we have seen generate findings in MHRA GVP inspections:</p>
+      <ul>
+        <li><strong>Gateway configuration:</strong> Confirm your safety database is configured to submit to both E2B(R3) EudraVigilance and MHRA gateway simultaneously, with separate acknowledgement tracking for each.</li>
+        <li><strong>Northern Ireland products:</strong> If you have products authorised under the Windsor Framework, confirm your routing logic correctly identifies whether EU or UK reporting obligations apply per product.</li>
+        <li><strong>15-day clock start:</strong> MHRA applies the same day-zero rules as EMA (day zero = day of first receipt of minimum valid information), but inspectors have found cases where UK clock-start was incorrectly set to the EU submission date.</li>
+        <li><strong>SOP currency:</strong> Your ICSR processing SOP should explicitly address UK reporting as a distinct obligation, not simply reference EU GVP Module VI.</li>
+        <li><strong>Staff training:</strong> Training records should reflect UK-specific ICSR requirements, not only EU GVP training.</li>
+        <li><strong>PSMF accuracy:</strong> Your PSMF description of the UK PV system must be current — including the named UK local contact, UK QPPV (if applicable), and UK safety database configuration.</li>
+      </ul>
+      <div class="ap-tags">
+        <span class="ap-tag">MHRA</span><span class="ap-tag">ICSR</span><span class="ap-tag">Post-Brexit</span><span class="ap-tag">EudraVigilance</span><span class="ap-tag">Yellow Card</span>
+      </div>
+      <div class="ap-cta">
+        <p>Need a dual EU/UK ICSR compliance review? Our team can audit your reporting workflows and confirm your MHRA and EMA obligations are being met correctly.</p>
+        <a href="gvp_pv_quality_compliance_site.html#contact">Request an ICSR Audit →</a>
+      </div>`
+  }
+};
+
+// Default body for articles without full content
+const defaultBody = (title, author, cat) => `
+  <p>This article provides in-depth analysis of <strong>${cat}</strong> developments and their implications for pharmacovigilance quality and compliance teams.</p>
+  <h2>Overview</h2>
+  <p>Our expert team at Rizonex regularly publishes detailed regulatory intelligence specifically written for pharmacovigilance professionals. This article is part of our ongoing series covering the latest GVP regulatory updates and PV system best practices.</p>
+  <div class="ap-callout"><p>This article is currently being finalised by our editorial team. Subscribe to Rizonex Insights to be notified when the full version is published.</p></div>
+  <h2>Key Areas Covered</h2>
+  <ul>
+    <li>Regulatory background and context</li>
+    <li>Specific requirements and how they have changed</li>
+    <li>Practical compliance implications for MAHs</li>
+    <li>Documentation and process recommendations</li>
+    <li>Inspection readiness checklist</li>
+  </ul>
+  <div class="ap-cta">
+    <p>Have a question about this topic? Our team is happy to discuss your specific situation in a complimentary consultation.</p>
+    <a href="gvp_pv_quality_compliance_site.html#contact">Speak to a PV Expert →</a>
+  </div>`;
+
+function openArticle(id){
+  const art = articles[id] || {
+    cat: 'Rizonex Insights',
+    title: id.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),
+    author: 'Rizonex Editorial', initials: 'RX',
+    date: '2025', rt: '10 min read',
+    body: ''
+  };
+  const hdr = document.getElementById('ap-header');
+  const body = document.getElementById('ap-body');
+  hdr.innerHTML = `
+    <button class="ap-close" onclick="closeArticle()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="ap-cat">${art.cat}</div>
+    <h1 class="ap-title">${art.title}</h1>
+    <div class="ap-meta">
+      <div class="ap-av">${art.initials}</div>
+      <span class="ap-author">${art.author}</span>
+      <div class="ap-sep"></div>
+      <span class="ap-date">${art.date}</span>
+      <div class="ap-sep"></div>
+      <span class="ap-rt">${art.rt}</span>
+    </div>`;
+  body.innerHTML = art.body || defaultBody(art.title, art.author, art.cat);
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('article-panel').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeArticle(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('article-panel').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeArticle()});
+</script>
+</body>
+</html>
